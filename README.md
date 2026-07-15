@@ -90,7 +90,7 @@ Android alarms, receivers, speech and foreground services
 
 ## Code samples
 
-The [`samples`](samples) directory contains a compact, readable example of the structure used by the app. It now includes models, local JSON persistence, platform contracts, dependency injection, a view model and a reusable XAML control.
+The [`samples`](samples) directory contains a compact, readable example of the structure used by the app. It includes models, local JSON persistence, Android alarm scheduling, a notification receiver, an HTTP weather client, theme management, dependency injection, view models and a reusable XAML control.
 
 ```text
 samples/
@@ -99,21 +99,37 @@ samples/
 ├── Models/
 │   ├── Habit.cs
 │   ├── Reminder.cs
-│   └── StopwatchTimer.cs
+│   ├── StopwatchTimer.cs
+│   └── WeatherSnapshot.cs
+├── Platforms/Android/
+│   ├── AndroidManifest.xml
+│   ├── AndroidReminderScheduler.cs
+│   └── ReminderReceiver.cs
 ├── Services/
 │   ├── IReminderScheduler.cs
 │   ├── IReminderStore.cs
 │   ├── IStopwatchService.cs
 │   ├── JsonReminderStore.cs
-│   └── NoOpReminderScheduler.cs
+│   ├── NoOpReminderScheduler.cs
+│   ├── ThemeManager.cs
+│   └── WeatherClient.cs
 ├── ViewModels/
-│   └── ReminderListViewModel.cs
+│   ├── ReminderListViewModel.cs
+│   └── StopwatchViewModel.cs
 └── Views/
     ├── ReminderCard.xaml
     └── ReminderCard.xaml.cs
 ```
 
-The samples are intentionally limited. The production reminder engine, Android alarm implementation, weather integration, localization catalog and release configuration are not published here.
+### What the sample demonstrates
+
+- `AndroidReminderScheduler` creates stable `PendingIntent` request codes and selects the appropriate `AlarmManager` API for the Android version.
+- `ReminderReceiver` turns a scheduled broadcast into a high-priority notification channel.
+- `JsonReminderStore` serializes local state behind a semaphore and uses an atomic temporary-file replacement.
+- `WeatherClient` maps a small Open-Meteo response into an app-facing model.
+- `StopwatchViewModel` manages multiple independent timers and a lightweight UI refresh loop.
+
+The samples are intentionally limited. The production reminder engine, complete background service, full weather integration, localization catalog and release configuration are not published here.
 
 ## Repository scope
 
