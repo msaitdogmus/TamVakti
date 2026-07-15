@@ -3,8 +3,13 @@
     x:Class="TamVakti.Sample.Views.ReminderCard"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TamVakti.Sample.Converters"
     xmlns:models="clr-namespace:TamVakti.Sample.Models"
     x:DataType="models:Reminder">
+
+    <ContentView.Resources>
+        <converters:ImportanceColorConverter x:Key="ImportanceColor" />
+    </ContentView.Resources>
 
     <Border
         Padding="18"
@@ -21,7 +26,7 @@
             <Label
                 Grid.Column="1"
                 Text="{Binding Importance}"
-                TextColor="#16C784" />
+                TextColor="{Binding Importance, Converter={StaticResource ImportanceColor}}" />
 
             <Label
                 Grid.Row="1"

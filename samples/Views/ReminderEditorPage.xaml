@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TamVakti.Sample.Views.ReminderEditorPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:TamVakti.Sample.Models"
+    xmlns:viewModels="clr-namespace:TamVakti.Sample.ViewModels"
+    x:DataType="viewModels:ReminderEditorViewModel"
+    BackgroundColor="{AppThemeBinding Light=#F6F8F7, Dark=#06100B}"
+    Title="Create reminder">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="18">
+            <Label
+                FontAttributes="Bold"
+                FontSize="28"
+                Text="Create reminder" />
+
+            <Border
+                Padding="16"
+                BackgroundColor="{AppThemeBinding Light=White, Dark=#12251C}"
+                Stroke="#2A4A3A"
+                StrokeShape="RoundRectangle 18">
+                <VerticalStackLayout Spacing="6">
+                    <Label Opacity="0.7" Text="Title" />
+                    <Entry
+                        MaxLength="80"
+                        Placeholder="What should I remember?"
+                        Text="{Binding Title}" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding TitleError}"
+                        TextColor="#F2778A" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="16"
+                BackgroundColor="{AppThemeBinding Light=White, Dark=#12251C}"
+                Stroke="#2A4A3A"
+                StrokeShape="RoundRectangle 18">
+                <Editor
+                    AutoSize="TextChanges"
+                    MaxLength="500"
+                    MinimumHeightRequest="96"
+                    Placeholder="Add a note"
+                    Text="{Binding Note}" />
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <DatePicker Date="{Binding Date}" />
+                <TimePicker Grid.Column="1" Time="{Binding Time}" />
+            </Grid>
+
+            <Label
+                FontSize="12"
+                Text="{Binding DateError}"
+                TextColor="#F2778A" />
+
+            <Label FontAttributes="Bold" Text="Priority" />
+            <HorizontalStackLayout
+                BindableLayout.ItemsSource="{Binding ImportanceOptions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:ImportanceLevel">
+                        <Button
+                            Margin="0,0,8,0"
+                            Clicked="OnImportanceClicked"
+                            CommandParameter="{Binding .}"
+                            Text="{Binding .}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+
+            <Label FontAttributes="Bold" Text="Repeat" />
+            <Picker
+                ItemsSource="{Binding RecurrenceOptions}"
+                SelectedItem="{Binding Recurrence}" />
+
+            <Label
+                HorizontalTextAlignment="Center"
+                Text="{Binding Message}"
+                TextColor="#16C784" />
+
+            <Button
+                BackgroundColor="#16C784"
+                Clicked="OnSaveClicked"
+                CornerRadius="18"
+                FontAttributes="Bold"
+                FontSize="18"
+                IsEnabled="{Binding CanSave}"
+                Text="Create" />
+
+            <ActivityIndicator
+                IsRunning="{Binding IsSaving}"
+                IsVisible="{Binding IsSaving}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

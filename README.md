@@ -90,46 +90,94 @@ Android alarms, receivers, speech and foreground services
 
 ## Code samples
 
-The [`samples`](samples) directory contains a compact, readable example of the structure used by the app. It includes models, local JSON persistence, Android alarm scheduling, a notification receiver, an HTTP weather client, theme management, dependency injection, view models and a reusable XAML control.
+The [`samples`](samples) directory contains a small, buildable Android project that mirrors the main layers of Tam Vakti. It is more than a collection of disconnected snippets: the reminder editor, validation, local storage and Android alarm implementation form one readable flow.
 
 ```text
 samples/
-├── AppBootstrap.cs
-├── TamVakti.Sample.csproj
-├── Models/
-│   ├── Habit.cs
-│   ├── Reminder.cs
-│   ├── StopwatchTimer.cs
-│   └── WeatherSnapshot.cs
-├── Platforms/Android/
-│   ├── AndroidManifest.xml
-│   ├── AndroidReminderScheduler.cs
-│   └── ReminderReceiver.cs
-├── Services/
-│   ├── IReminderScheduler.cs
-│   ├── IReminderStore.cs
-│   ├── IStopwatchService.cs
-│   ├── JsonReminderStore.cs
-│   ├── NoOpReminderScheduler.cs
-│   ├── ThemeManager.cs
-│   └── WeatherClient.cs
-├── ViewModels/
-│   ├── ReminderListViewModel.cs
-│   └── StopwatchViewModel.cs
-└── Views/
-    ├── ReminderCard.xaml
-    └── ReminderCard.xaml.cs
+|-- AppBootstrap.cs
+|-- TamVakti.Sample.csproj
+|-- Converters/
+|   `-- ImportanceColorConverter.cs
+|-- Models/
+|   |-- Habit.cs
+|   |-- Reminder.cs
+|   |-- ReminderDraft.cs
+|   |-- StopwatchTimer.cs
+|   `-- WeatherSnapshot.cs
+|-- Platforms/Android/
+|   |-- AndroidManifest.xml
+|   |-- AndroidReminderScheduler.cs
+|   `-- ReminderReceiver.cs
+|-- Services/
+|   |-- IReminderScheduler.cs
+|   |-- IReminderStore.cs
+|   |-- JsonReminderStore.cs
+|   |-- ReminderRecurrence.cs
+|   |-- ReminderService.cs
+|   |-- ThemeManager.cs
+|   `-- WeatherClient.cs
+|-- ViewModels/
+|   |-- ReminderEditorViewModel.cs
+|   |-- ReminderListViewModel.cs
+|   `-- StopwatchViewModel.cs
+`-- Views/
+    |-- ReminderCard.xaml
+    |-- ReminderEditorPage.xaml
+    `-- ReminderEditorPage.xaml.cs
 ```
 
-### What the sample demonstrates
+### Reminder creation flow
 
-- `AndroidReminderScheduler` creates stable `PendingIntent` request codes and selects the appropriate `AlarmManager` API for the Android version.
-- `ReminderReceiver` turns a scheduled broadcast into a high-priority notification channel.
-- `JsonReminderStore` serializes local state behind a semaphore and uses an atomic temporary-file replacement.
-- `WeatherClient` maps a small Open-Meteo response into an app-facing model.
-- `StopwatchViewModel` manages multiple independent timers and a lightweight UI refresh loop.
+The reminder example follows the same separation used throughout the app:
 
-The samples are intentionally limited. The production reminder engine, complete background service, full weather integration, localization catalog and release configuration are not published here.
+1. `ReminderEditorPage` contains the Android-friendly MAUI form and binds user input to `ReminderEditorViewModel`.
+2. `ReminderDraft` combines the selected date and time, normalizes the input and returns field-level validation errors.
+3. `ReminderService` asks for notification permission, schedules the Android alarm and then persists the reminder. If saving fails, it cancels the alarm so storage and Android do not drift apart.
+4. `AndroidReminderScheduler` creates a stable `PendingIntent` and chooses the correct `AlarmManager` method for the installed Android version.
+5. `ReminderReceiver` receives the broadcast and displays it through a high-priority notification channel.
+
+The orchestration remains deliberately straightforward:
+
+```csharp
+var errors = draft.Validate(DateTimeOffset.Now);
+if (errors.Count > 0)
+{
+    throw new ReminderValidationException(errors);
+}
+
+var reminder = draft.ToReminder();
+await scheduler.ScheduleAsync(reminder, cancellationToken);
+
+try
+{
+    var items = (await store.LoadAsync(cancellationToken)).ToList();
+    items.Add(reminder);
+    await store.SaveAsync(items, cancellationToken);
+}
+catch
+{
+    await scheduler.CancelAsync(reminder.Id, CancellationToken.None);
+    throw;
+}
+```
+
+### Other examples
+
+- `ReminderRecurrence` advances daily, weekly and monthly reminders without skipping overdue occurrences or drifting at the end of a month.
+- `JsonReminderStore` protects local state with a semaphore and replaces the data file atomically after serialization.
+- `WeatherClient` maps a focused Open-Meteo response into an app-facing weather model.
+- `StopwatchTimer` keeps accumulated time and lap splits independent from the UI refresh interval.
+- `StopwatchViewModel` manages several running timers with one lightweight dispatcher timer.
+- `ThemeManager` applies and remembers the user's light or dark appearance preference.
+- `AppBootstrap` shows how platform contracts, services, view models and pages are registered with dependency injection.
+
+The sample project can be checked with:
+
+```bash
+dotnet build samples/TamVakti.Sample.csproj -c Release
+```
+
+These examples are intentionally selected. The complete production UI, background stopwatch service, localization catalog, store configuration and proprietary application logic are not published here.
 
 ## Repository scope
 

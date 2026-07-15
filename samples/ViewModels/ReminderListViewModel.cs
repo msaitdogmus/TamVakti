@@ -8,15 +8,12 @@ namespace TamVakti.Sample.ViewModels;
 
 public sealed class ReminderListViewModel : INotifyPropertyChanged
 {
-    private readonly IReminderStore store;
-    private readonly IReminderScheduler scheduler;
-    private List<Reminder> allReminders = [];
+    private readonly ReminderService reminderService;
     private bool isBusy;
 
-    public ReminderListViewModel(IReminderStore store, IReminderScheduler scheduler)
+    public ReminderListViewModel(ReminderService reminderService)
     {
-        this.store = store;
-        this.scheduler = scheduler;
+        this.reminderService = reminderService;
     }
 
     public ObservableCollection<Reminder> Reminders { get; } = [];
@@ -37,13 +34,10 @@ public sealed class ReminderListViewModel : INotifyPropertyChanged
         IsBusy = true;
         try
         {
-            var items = await store.LoadAsync(cancellationToken);
-            allReminders = items.ToList();
+            var items = await reminderService.GetScheduledAsync(cancellationToken);
 
             Reminders.Clear();
-            foreach (var reminder in allReminders
-                         .Where(x => x.Status == ReminderStatus.Scheduled)
-                         .OrderBy(x => x.ScheduledFor))
+            foreach (var reminder in items)
             {
                 Reminders.Add(reminder);
             }
@@ -54,24 +48,44 @@ public sealed class ReminderListViewModel : INotifyPropertyChanged
         }
     }
 
-    public async Task AddAsync(Reminder reminder, CancellationToken cancellationToken = default)
+    public async Task AddAsync(
+        ReminderDraft draft,
+        CancellationToken cancellationToken = default)
     {
-        allReminders.Add(reminder);
-        Reminders.Add(reminder);
-        await store.SaveAsync(allReminders, cancellationToken);
-        await scheduler.ScheduleAsync(reminder, cancellationToken);
+        var reminder = await reminderService.CreateAsync(draft, cancellationToken);
+        InsertByDate(reminder);
     }
 
-    public async Task ArchiveAsync(Reminder reminder, CancellationToken cancellationToken = default)
+    public async Task CompleteAsync(
+        Reminder reminder,
+        CancellationToken cancellationToken = default)
     {
-        reminder.Status = ReminderStatus.Archived;
         Reminders.Remove(reminder);
 
-        await scheduler.CancelAsync(reminder.Id, cancellationToken);
-        await store.SaveAsync(allReminders, cancellationToken);
+        var updated = await reminderService.CompleteAsync(
+            reminder.Id,
+            DateTimeOffset.Now,
+            cancellationToken);
+
+        if (updated?.Status == ReminderStatus.Scheduled)
+        {
+            InsertByDate(updated);
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    private void InsertByDate(Reminder reminder)
+    {
+        var index = 0;
+        while (index < Reminders.Count &&
+               Reminders[index].ScheduledFor <= reminder.ScheduledFor)
+        {
+            index++;
+        }
+
+        Reminders.Insert(index, reminder);
+    }
 
     private void SetField<T>(ref T field, T value, [CallerMemberName] string? name = null)
     {

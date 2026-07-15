@@ -1,19 +1,44 @@
 # Code samples
 
-This folder shows the main patterns used in Tam Vakti without publishing the production application.
+This folder is a buildable, Android-only .NET MAUI sample based on the architecture of Tam Vakti. It demonstrates the parts that are useful in a portfolio review while keeping the production application and its private configuration out of the repository.
 
-Included examples:
+## Start here
 
-- Reminder, habit and stopwatch models
-- JSON persistence protected by a semaphore
-- Android alarm scheduling and a notification receiver
-- An HttpClient-based weather service
-- Theme preference management
-- Platform service contracts
-- Dependency injection registration
-- Reminder and stopwatch view models
-- A reusable, theme-aware MAUI control
+For the clearest end-to-end example, read the reminder files in this order:
 
-The Android alarm implementation, weather client, complete localization catalog and production UI remain private.
+1. `Models/ReminderDraft.cs` — input normalization and field validation
+2. `ViewModels/ReminderEditorViewModel.cs` — form state, save state and user-facing errors
+3. `Services/ReminderService.cs` — permission, scheduling and storage coordination
+4. `Services/JsonReminderStore.cs` — serialized local persistence
+5. `Platforms/Android/AndroidReminderScheduler.cs` — native alarm setup
+6. `Platforms/Android/ReminderReceiver.cs` — notification delivery
+7. `Views/ReminderEditorPage.xaml` — the MAUI form bound to the ViewModel
 
-Code in this folder is licensed under the MIT License.
+## Directory guide
+
+| Folder | Purpose |
+| --- | --- |
+| `Models` | Reminder, habit, stopwatch and weather data types |
+| `Services` | Persistence, recurrence, weather, themes and application coordination |
+| `ViewModels` | UI state and actions without Android-specific code |
+| `Views` | Selected XAML controls and the reminder editor page |
+| `Platforms/Android` | `AlarmManager`, `BroadcastReceiver` and notification-channel integration |
+| `Converters` | Small presentation helpers shared by XAML views |
+
+## Design notes
+
+- Android APIs stay behind `IReminderScheduler`, keeping the ViewModels easy to follow and test.
+- Local JSON writes use a temporary file so an interrupted save does not replace valid state with a partial document.
+- Reminder creation compensates for a failed disk write by cancelling the alarm that was just scheduled.
+- Recurring reminders are advanced until their next date is in the future. Monthly reminders preserve the requested day when the target month allows it.
+- Stopwatch elapsed time is calculated from timestamps; the UI timer only asks the view to refresh and does not act as the time source.
+
+## Build
+
+From this directory:
+
+```bash
+dotnet build TamVakti.Sample.csproj -c Release
+```
+
+The samples do not include signing material, API credentials, store packages, the complete localization catalog or the full production UI. Code in this folder is licensed under the MIT License.
