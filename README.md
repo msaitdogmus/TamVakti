@@ -10,7 +10,7 @@
 
   <p>
     <img alt=".NET 10" src="https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white">
-    <img alt=".NET MAUI" src="https://img.shields.io/badge/.NET_MAUI-Cross--platform-512BD4">
+    <img alt=".NET MAUI for Android" src="https://img.shields.io/badge/.NET_MAUI-Android-512BD4">
     <img alt="C#" src="https://img.shields.io/badge/C%23-Modern-239120?logo=csharp&logoColor=white">
     <img alt="Android" src="https://img.shields.io/badge/Android-5.0%2B-3DDC84?logo=android&logoColor=white">
     <img alt="MIT License" src="https://img.shields.io/badge/sample_code-MIT-green">
@@ -59,12 +59,12 @@ The latest release uses a separate reminder editor so the home screen stays clea
 
 | Area | Technology |
 | --- | --- |
-| Application framework | .NET 10 and .NET MAUI Single Project |
+| Application framework | .NET 10 and .NET MAUI for Android |
 | Language | C# |
 | User interface | XAML, MAUI Controls and custom styles |
-| Current distribution | Android 5.0+ through Google Play |
-| Additional MAUI targets | iOS, macOS and Windows |
-| Application structure | Dependency injection, service abstractions and platform implementations |
+| Platform | Android 5.0+ (API 21+) |
+| Distribution | Google Play via Android App Bundle |
+| Application structure | Dependency injection, service abstractions and Android-specific implementations |
 | Android integration | AlarmManager, BroadcastReceiver, Foreground Service and SpeechRecognizer |
 | Device APIs | Geolocation, Preferences and local notifications |
 | Networking | HttpClient-based weather and location requests |
@@ -74,10 +74,10 @@ The latest release uses a separate reminder editor so the home screen stays clea
 
 ## Architecture
 
-Shared screens and application services live in the .NET MAUI layer. Features that depend on the operating system—alarms, speech recognition and background stopwatch notifications—are exposed through small interfaces and implemented inside the platform project.
+The interface and application services are built with .NET MAUI for Android. Native features such as alarms, speech recognition and background stopwatch notifications are exposed through small interfaces and implemented in the Android platform layer.
 
 ```text
-MAUI pages and controls
+Android MAUI pages and controls
         │
 View models and application services
         │
