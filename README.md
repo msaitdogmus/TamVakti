@@ -1,116 +1,139 @@
 <div align="center">
-  <img src="assets/branding/app-icon.png" alt="Tam Vakti uygulama simgesi" width="112" />
+  <img src="assets/branding/app-icon.png" alt="Tam Vakti app icon" width="112" />
   <h1>Tam Vakti</h1>
-  <p><strong>Zamanını planla, o anı kaçırma.</strong></p>
-  <p>Hatırlatıcı, alışkanlık takibi, hava durumu ve çoklu kronometreyi tek bir sade mobil deneyimde buluşturan üretkenlik uygulaması.</p>
+  <p><strong>Plan your time. Never miss the moment.</strong></p>
+  <p>A focused productivity app that brings reminders, habit tracking, weather and multiple stopwatches together.</p>
 
   <p>
-    <a href="https://play.google.com/store/apps/details?id=com.msds.tamvakti"><img alt="Google Play'den indir" src="https://img.shields.io/badge/Google_Play-%C4%B0ndir-414141?style=for-the-badge&logo=googleplay&logoColor=white"></a>
+    <a href="https://play.google.com/store/apps/details?id=com.msds.tamvakti"><img alt="Get it on Google Play" src="https://img.shields.io/badge/Google_Play-Download-414141?style=for-the-badge&logo=googleplay&logoColor=white"></a>
   </p>
 
   <p>
     <img alt=".NET 10" src="https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white">
     <img alt=".NET MAUI" src="https://img.shields.io/badge/.NET_MAUI-Cross--platform-512BD4">
+    <img alt="C#" src="https://img.shields.io/badge/C%23-Modern-239120?logo=csharp&logoColor=white">
     <img alt="Android" src="https://img.shields.io/badge/Android-5.0%2B-3DDC84?logo=android&logoColor=white">
     <img alt="MIT License" src="https://img.shields.io/badge/sample_code-MIT-green">
   </p>
 </div>
 
-![Tam Vakti özellik görseli](assets/branding/feature-graphic.jpg)
+![Tam Vakti feature graphic](assets/branding/feature-graphic.jpg)
 
-## Uygulama hakkında
+## About the app
 
-Tam Vakti; günlük planları, önemli anları ve odak sürelerini tek yerde yönetmek için geliştirildi. Hatırlatıcılar önem seviyesine göre ayarlanabilir, sesle başlık girilebilir ve yaklaşan kayıtlar ana ekrandan hızlıca takip edilebilir. Uygulama açık/koyu tema ve çoklu dil desteğiyle farklı kullanım alışkanlıklarına uyum sağlar.
+Tam Vakti is designed for people who want a simple way to organize daily plans, important moments and focus sessions. Reminders can be created with a date, time, note and priority. The home screen keeps the next events visible without turning the app into a crowded task manager.
 
-### Öne çıkan özellikler
+The current Android release is available on [Google Play](https://play.google.com/store/apps/details?id=com.msds.tamvakti).
 
-- Tarih, saat, not ve önem seviyesiyle hatırlatıcı oluşturma
-- Yerel Android alarm altyapısı ve ertelenebilir bildirimler
-- Sesli giriş ile hızlı başlık ekleme
-- Alışkanlık takibi ve tamamlanma durumu
-- Tamamlanan kayıtlar için arşiv
-- Aynı anda birden fazla sayaç çalıştırabilen kronometre
-- Arka planda çalışmayı sürdüren Android kronometre servisi
-- Konuma göre hava durumu ve manuel konum seçimi
-- Bildirim/alarm sesi özelleştirme
-- Açık ve koyu tema
-- Türkçe dahil çoklu dil desteği
+### Highlights
 
-## Ekran görüntüleri
+- Date- and time-based reminders with three priority levels
+- Native Android alarms with snooze support
+- Voice input for quickly entering reminder titles
+- Habit tracking with daily, weekly and monthly schedules
+- Archive for completed reminders
+- Multiple stopwatches running at the same time
+- Foreground service support for background stopwatch sessions
+- Location-based weather with manual location selection
+- Configurable notification and alarm sounds
+- Light and dark themes
+- Localization for Afrikaans, Arabic, German, Greek, English, Spanish, French, Hindi, Japanese, Portuguese, Russian, Turkish and Chinese
 
-En son sürümde hatırlatıcı oluşturma akışı ana sayfadan ayrılarak daha sade ve odaklı bir ekrana taşındı.
+## Screenshots
+
+The latest release uses a separate reminder editor so the home screen stays clean and easy to scan.
 
 <p align="center">
-  <img src="assets/screenshots/home.png" alt="Tam Vakti ana sayfa" width="260" />
-  <img src="assets/screenshots/create-reminder.png" alt="Hatırlatıcı oluşturma ekranı" width="260" />
-  <img src="assets/screenshots/archive.png" alt="Arşiv ekranı" width="260" />
+  <img src="assets/screenshots/home.png" alt="Tam Vakti home screen" width="260" />
+  <img src="assets/screenshots/create-reminder.png" alt="Create reminder screen" width="260" />
+  <img src="assets/screenshots/archive.png" alt="Reminder archive" width="260" />
 </p>
 
 <p align="center">
-  <img src="assets/screenshots/habits.png" alt="Alışkanlıklar ekranı" width="260" />
-  <img src="assets/screenshots/stopwatch.png" alt="Çoklu kronometre ekranı" width="260" />
-  <img src="assets/screenshots/notification-settings.png" alt="Bildirim ve alarm ayarları" width="260" />
+  <img src="assets/screenshots/habits.png" alt="Habit tracking" width="260" />
+  <img src="assets/screenshots/stopwatch.png" alt="Multiple stopwatch screen" width="260" />
+  <img src="assets/screenshots/notification-settings.png" alt="Notification and alarm settings" width="260" />
 </p>
 
-## Kullanılan teknolojiler
+## Technology stack
 
-| Alan | Teknoloji / yaklaşım |
+| Area | Technology |
 | --- | --- |
-| Uygulama çatısı | .NET 10, .NET MAUI Single Project |
-| Dil ve arayüz | C#, XAML, MAUI Controls |
-| Hedefler | Android; MAUI kod tabanında iOS, macOS ve Windows hedefleri |
-| Mimari | Bağımlılık enjeksiyonu, servis arayüzleri, platforma özel uygulamalar |
-| Android entegrasyonu | AlarmManager, BroadcastReceiver, Foreground Service, SpeechRecognizer |
-| Cihaz özellikleri | Geolocation, Preferences, yerel bildirimler |
-| Ağ | HttpClient tabanlı hava durumu ve konum servisleri |
-| Yerelleştirme | Kültür bazlı çoklu dil altyapısı |
-| Tasarım | Özel MAUI stilleri, açık/koyu tema, duyarlı mobil düzen |
+| Application framework | .NET 10 and .NET MAUI Single Project |
+| Language | C# |
+| User interface | XAML, MAUI Controls and custom styles |
+| Current distribution | Android 5.0+ through Google Play |
+| Additional MAUI targets | iOS, macOS and Windows |
+| Application structure | Dependency injection, service abstractions and platform implementations |
+| Android integration | AlarmManager, BroadcastReceiver, Foreground Service and SpeechRecognizer |
+| Device APIs | Geolocation, Preferences and local notifications |
+| Networking | HttpClient-based weather and location requests |
+| Persistence | Local JSON state and device preferences |
+| Localization | Culture-aware resources for 13 languages |
+| Release build | R8 shrinking and Android App Bundle |
 
-## Mimari yaklaşım
+## Architecture
 
-Platformdan bağımsız ekran ve iş akışları .NET MAUI katmanında tutulur. Alarm, sesli giriş ve arka plan kronometresi gibi işletim sistemine bağlı özellikler arayüzler üzerinden ayrıştırılır ve Android tarafında yerel servislerle uygulanır. Bu yapı, ortak kodun test edilebilir kalmasını ve platform davranışlarının kontrollü biçimde genişletilmesini sağlar.
+Shared screens and application services live in the .NET MAUI layer. Features that depend on the operating system—alarms, speech recognition and background stopwatch notifications—are exposed through small interfaces and implemented inside the platform project.
 
 ```text
-UI (MAUI / XAML)
-    ↓
-Uygulama servisleri ve modeller
-    ↓
-Platform arayüzleri
-    ↓
-Android alarm, bildirim, ses ve arka plan servisleri
+MAUI pages and controls
+        │
+View models and application services
+        │
+Models, local storage and HTTP services
+        │
+Platform contracts
+        │
+Android alarms, receivers, speech and foreground services
 ```
 
-## Kod örnekleri
+## Code samples
 
-[`samples`](samples) klasörü; projedeki yaklaşımı göstermek için sadeleştirilmiş model, servis sözleşmesi ve XAML bileşeni örnekleri içerir. Bunlar üretim uygulamasının çekirdek algoritmaları veya tam kaynak kodu değildir.
+The [`samples`](samples) directory contains a compact, readable example of the structure used by the app. It now includes models, local JSON persistence, platform contracts, dependency injection, a view model and a reusable XAML control.
 
-```csharp
-public interface IReminderScheduler
-{
-    Task ScheduleAsync(ReminderPreview reminder, CancellationToken cancellationToken = default);
-    Task CancelAsync(string reminderId, CancellationToken cancellationToken = default);
-}
+```text
+samples/
+├── AppBootstrap.cs
+├── TamVakti.Sample.csproj
+├── Models/
+│   ├── Habit.cs
+│   ├── Reminder.cs
+│   └── StopwatchTimer.cs
+├── Services/
+│   ├── IReminderScheduler.cs
+│   ├── IReminderStore.cs
+│   ├── IStopwatchService.cs
+│   ├── JsonReminderStore.cs
+│   └── NoOpReminderScheduler.cs
+├── ViewModels/
+│   └── ReminderListViewModel.cs
+└── Views/
+    ├── ReminderCard.xaml
+    └── ReminderCard.xaml.cs
 ```
 
-## Kaynak kodu paylaşım politikası
+The samples are intentionally limited. The production reminder engine, Android alarm implementation, weather integration, localization catalog and release configuration are not published here.
 
-Bu depo bir **ürün vitrini ve sınırlı kod örneği** deposudur; Tam Vakti'nin tam açık kaynak deposu değildir.
+## Repository scope
 
-- Üretim kaynak kodu ve uygulamanın çekirdek iş mantığı burada yayımlanmaz.
-- İmzalama anahtarları, API anahtarları, APK/AAB dosyaları ve yapı çıktıları depoya eklenmez.
-- `samples/` altındaki kodlar bağımsız ve sadeleştirilmiş örneklerdir.
-- Ekran görüntüleri ve marka varlıkları uygulamayı tanıtmak amacıyla sunulur.
+This is a product showcase with selected code samples, not the full open-source repository of Tam Vakti.
 
-## Gizlilik
+- Production source code and proprietary application logic are not included.
+- Signing keys, API credentials, APK/AAB packages and build outputs are excluded.
+- Code under `samples/` is independent and safe to reuse under the MIT License.
+- Screenshots, the app icon and other brand assets are provided only to present the product.
 
-Uygulamanın gizlilik yaklaşımı ve kullanılan izinlerle ilgili ayrıntılar için [Gizlilik Politikası](PRIVACY.md) belgesini inceleyebilirsiniz.
+## Privacy
 
-## Lisans
+The app's current privacy policy is available in [PRIVACY.md](PRIVACY.md). The published policy is kept in Turkish to match the current store listing.
 
-`samples/` klasöründeki örnek yazılım kodları [MIT Lisansı](LICENSE) ile sunulur. Tam Vakti adı, uygulama simgesi, ekran görüntüleri ve diğer marka/görsel varlıkları bu lisansın kapsamında değildir; ayrıntılar için [Varlık Kullanım Bildirimi](ASSETS_LICENSE.md) belgesine bakın.
+## License
+
+Source code under `samples/` is available under the [MIT License](LICENSE). The Tam Vakti name, app icon, screenshots and other visual assets are not covered by the MIT License. See [ASSETS_LICENSE.md](ASSETS_LICENSE.md) for details.
 
 ---
 
 <div align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.msds.tamvakti">Tam Vakti'ni Google Play'de görüntüle</a>
+  <a href="https://play.google.com/store/apps/details?id=com.msds.tamvakti">View Tam Vakti on Google Play</a>
 </div>

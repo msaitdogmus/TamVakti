@@ -1,14 +1,12 @@
-using TamVakti.Showcase.Models;
+using TamVakti.Sample.Models;
 
-namespace TamVakti.Showcase.Services;
+namespace TamVakti.Sample.Services;
 
 public interface IReminderScheduler
 {
-    Task ScheduleAsync(
-        ReminderPreview reminder,
-        CancellationToken cancellationToken = default);
+    Task<bool> RequestPermissionAsync(CancellationToken cancellationToken = default);
 
-    Task CancelAsync(
-        string reminderId,
-        CancellationToken cancellationToken = default);
+    Task ScheduleAsync(Reminder reminder, CancellationToken cancellationToken = default);
+
+    Task CancelAsync(string reminderId, CancellationToken cancellationToken = default);
 }

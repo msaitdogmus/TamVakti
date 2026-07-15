@@ -1,12 +1,12 @@
-# Güvenlik
+# Security
 
-Bu depo üretim uygulamasının tam kaynak kodunu içermez.
+This repository does not contain the production source code of Tam Vakti.
 
-Bir güvenlik sorunu fark ederseniz lütfen herkese açık bir issue içinde API anahtarı, erişim bilgisi, kişisel veri veya istismar ayrıntısı paylaşmayın. GitHub profili üzerinden geliştiriciyle özel olarak iletişime geçin.
+If you find a security issue, do not post credentials, personal data or exploit details in a public issue. Contact the developer privately through the GitHub profile instead.
 
-Depoya bilerek dahil edilmeyen hassas öğeler:
+The following files are intentionally excluded:
 
-- Uygulama imzalama anahtarları ve parolaları
-- API anahtarları ve servis kimlik bilgileri
-- APK, AAB, PDB, DLL ve diğer derleme çıktıları
-- Üretim iş mantığı ve özel algoritmalar
+- App signing keys and passwords
+- API keys and service credentials
+- APK, AAB, PDB, DLL and other build artifacts
+- Production business logic and private algorithms

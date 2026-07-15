@@ -1,5 +1,16 @@
-# Kod örnekleri
+# Code samples
 
-Bu klasör Tam Vakti'nin model, servis ve XAML yaklaşımını gösteren küçük örnekler içerir. Uygulamanın tam kaynak kodu burada yer almaz.
+This folder shows the main patterns used in Tam Vakti without publishing the production application.
 
-Örnekler MIT Lisansı kapsamındadır.
+Included examples:
+
+- Reminder, habit and stopwatch models
+- JSON persistence protected by a semaphore
+- Platform service contracts
+- Dependency injection registration
+- A small reminder list view model
+- A reusable, theme-aware MAUI control
+
+The Android alarm implementation, weather client, complete localization catalog and production UI remain private.
+
+Code in this folder is licensed under the MIT License.

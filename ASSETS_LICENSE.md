@@ -1,7 +1,7 @@
-# Varlık Kullanım Bildirimi
+# Asset usage notice
 
-MIT Lisansı yalnızca bu depodaki `samples/` klasöründe bulunan örnek yazılım kodlarına uygulanır.
+The MIT License applies only to source code located under the `samples/` directory.
 
-Tam Vakti adı, uygulama simgesi, özellik görseli, ekran görüntüleri, mağaza metinleri ve diğer marka/görsel varlıkları © 2026 msaitdogmus. Tüm hakları saklıdır. Bu varlıklar, sahibinin yazılı izni olmadan başka bir üründe marka, mağaza listeleme görseli veya yanıltıcı tanıtım malzemesi olarak kullanılamaz.
+The Tam Vakti name, app icon, feature graphic, screenshots, store copy and other visual or brand assets are © 2026 msaitdogmus. All rights reserved. These assets may not be reused as another product's identity, store listing or promotional material without written permission from the owner.
 
-Google Play ve Google Play logosu Google LLC'nin ticari markalarıdır.
+Google Play and the Google Play logo are trademarks of Google LLC.
