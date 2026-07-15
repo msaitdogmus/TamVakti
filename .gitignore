@@ -2,15 +2,54 @@
 Codes/
 src/
 
-# Build outputs
-bin/
-obj/
+# .NET build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
 artifacts/
+publish/
 *.apk
 *.aab
+*.ipa
+*.app
+*.xcarchive
 *.dll
 *.pdb
 *.mapping
+*.cache
+*.log
+
+# Test and coverage results
+TestResults/
+coverage/
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.lcov
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+
+# Visual Studio generated files
+.vs/
+Generated\ Files/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj.user
+*.pubxml
+*.publishproj
 
 # Signing material and secrets
 *.keystore
@@ -24,11 +63,9 @@ local.properties
 appsettings.*.json
 
 # IDE and local files
-.vs/
 .vscode/
 .idea/
-*.user
-*.csproj.user
-*.suo
+*.sln.iml
+.dotnet/
 .DS_Store
 Thumbs.db
